@@ -9,7 +9,7 @@ class UtilityRepositoryImpl @Inject constructor(
     private val api: ApiService
 ) : UtilityRepository {
 
-    override suspend fun getUtilities(): UtilityTypeDto {
-        return api.getUtilities()
+    override suspend fun getUtilityTypes(): List<UtilityTypeDto> {
+        return api.getUtilityTypes()
     }
 }

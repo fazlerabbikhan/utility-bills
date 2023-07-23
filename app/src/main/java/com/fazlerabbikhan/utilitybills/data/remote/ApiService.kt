@@ -5,6 +5,6 @@ import retrofit2.http.GET
 
 interface ApiService {
 
-    @GET("/gp-utility/gp/utility-list")
-    suspend fun getUtilities(): UtilityTypeDto
+    @GET("/gp-utility/v1/gpay/utility-list")
+    suspend fun getUtilityTypes(): List<UtilityTypeDto>
 }

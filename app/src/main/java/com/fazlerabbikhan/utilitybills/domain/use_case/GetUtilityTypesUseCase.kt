@@ -10,18 +10,18 @@ import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
 
-class GetUtilitiesUseCase @Inject constructor(
+class GetUtilityTypesUseCase @Inject constructor(
     private val repository: UtilityRepository
 ) {
-    operator fun invoke(): Flow<Resource<UtilityType>> = flow {
+    operator fun invoke(): Flow<Resource<List<UtilityType>>> = flow {
         try {
-            emit(Resource.Loading<UtilityType>())
-            val utilities = repository.getUtilities().toUtilityType()
-            emit(Resource.Success<UtilityType>(utilities))
+            emit(Resource.Loading<List<UtilityType>>())
+            val utilityTypes = repository.getUtilityTypes().map { it.toUtilityType() }
+            emit(Resource.Success<List<UtilityType>>(utilityTypes))
         } catch(e: HttpException) {
-            emit(Resource.Error<UtilityType>(e.localizedMessage ?: "An unexpected error occurred"))
+            emit(Resource.Error<List<UtilityType>>(e.localizedMessage ?: "An unexpected error occurred"))
         } catch(e: IOException) {
-            emit(Resource.Error<UtilityType>("Couldn't reach server. Check your internet connection."))
+            emit(Resource.Error<List<UtilityType>>("Couldn't reach server. Check your internet connection."))
         }
     }
 }

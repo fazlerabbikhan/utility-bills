@@ -1,18 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.MainActivity">
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="16dp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Square Card 1 - Electricity -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_electricity"
+            android:layout_width="150dp"
+            android:layout_height="100dp"
+            android:layout_weight="1"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="8dp"
+            app:cardBackgroundColor="#FF9800"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Electricity"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp" />
+
+        </androidx.cardview.widget.CardView>
+
+        <!-- Square Card 2 - Electricity Prepaid -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_electricity_prepaid"
+            android:layout_width="150dp"
+            android:layout_height="100dp"
+            android:layout_weight="1"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="8dp"
+            app:cardBackgroundColor="#03A9F4"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Electricity Prepaid"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp" />
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/utilities_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
