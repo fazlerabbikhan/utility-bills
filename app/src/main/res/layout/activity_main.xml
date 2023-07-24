@@ -17,7 +17,7 @@
         <!-- Square Card 1 - Electricity -->
         <androidx.cardview.widget.CardView
             android:id="@+id/card_electricity"
-            android:layout_width="150dp"
+            android:layout_width="0dp"
             android:layout_height="100dp"
             android:layout_weight="1"
             android:layout_gravity="center_horizontal"
@@ -39,7 +39,7 @@
         <!-- Square Card 2 - Electricity Prepaid -->
         <androidx.cardview.widget.CardView
             android:id="@+id/card_electricity_prepaid"
-            android:layout_width="150dp"
+            android:layout_width="0dp"
             android:layout_height="100dp"
             android:layout_weight="1"
             android:layout_gravity="center_horizontal"

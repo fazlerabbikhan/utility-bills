@@ -43,14 +43,16 @@ class MainActivity : AppCompatActivity() {
                 binding.utilitiesLayout.addView(utilityLayout)
             }
 
-            // Set OnClickListener for the 'Electricity' card
-            binding.cardElectricity.setOnClickListener {
-                viewModel.filterUtilityTypes(state.utilityTypes[0].name)
-            }
+            if(state.utilityTypes.isNotEmpty()){
+                // Set OnClickListener for the 'Electricity' card
+                binding.cardElectricity.setOnClickListener {
+                    viewModel.filterUtilityTypes(state.utilityTypes[0].name)
+                }
 
-            // Set OnClickListener for the 'Electricity Prepaid' card
-            binding.cardElectricityPrepaid.setOnClickListener {
-                viewModel.filterUtilityTypes(state.utilityTypes[1].name)
+                // Set OnClickListener for the 'Electricity Prepaid' card
+                binding.cardElectricityPrepaid.setOnClickListener {
+                    viewModel.filterUtilityTypes(state.utilityTypes[1].name)
+                }
             }
         }
     }
