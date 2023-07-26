@@ -1,6 +1,7 @@
 package com.fazlerabbikhan.utilitybills.presentation.ui
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -43,10 +44,10 @@ class MainActivity : AppCompatActivity() {
                 params.columnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f)
                 utilityTypeLayout.layoutParams = params
                 textView.text = utilityType.name
+                binding.utilityTypesLayout.addView(utilityTypeLayout)
                 utilityTypeLayout.setOnClickListener {
                     viewModel.filterUtilityTypes(utilityType.name)
                 }
-                binding.utilityTypesLayout.addView(utilityTypeLayout)
             }
 
             // Extract the list of utilities from the state
@@ -61,6 +62,11 @@ class MainActivity : AppCompatActivity() {
                 val textView = utilityLayout.findViewById<TextView>(R.id.utility_name)
                 textView.text = utility.name
                 binding.utilitiesLayout.addView(utilityLayout)
+                utilityLayout.setOnClickListener {
+                    val intent = Intent(this, PayBillActivity::class.java)
+                    intent.putExtra("selectedUtility", utility)
+                    startActivity(intent)
+                }
             }
         }
     }
