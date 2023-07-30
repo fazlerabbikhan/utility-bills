@@ -18,7 +18,9 @@ import com.google.android.material.textfield.TextInputLayout
 class PayBillActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityPayBillBinding
-    private val requiredInputFields = mutableListOf<TextInputEditText>()
+    private val requiredFields = mutableListOf<TextInputEditText>()
+    private val requiredErrorMsg = "This field is required"
+    private val invalidErrorMsg = "Invalid input"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,15 +41,25 @@ class PayBillActivity : AppCompatActivity() {
         // Set OnClickListener for the Submit button
         binding.btnSubmit.setOnClickListener {
             // Remove focus to trigger validation for each input field
-            for (requiredInputField in requiredInputFields) {
-                requiredInputField.clearFocus()
+            for (requiredField in requiredFields) {
+                requiredField.clearFocus()
             }
 
             // After validation, check if any field has an error
-            if (requiredInputFields.any { it.error != null || it.text.isNullOrBlank()}) {
-                // At least one field has an error, show an error message or handle accordingly
-                Toast.makeText(this, "Please fill in all required fields correctly.", Toast.LENGTH_SHORT).show()
+            val errorField = requiredFields.find { it.error == requiredErrorMsg || it.error == invalidErrorMsg }
+                ?: requiredFields.find { it.text.isNullOrBlank() }
+
+            if (errorField != null) {
+                // Show an error message for the first field with an error
+                val trimmedLabel = errorField.hint?.toString()?.substringAfter(' ')?.trim(':') ?: ""
+                val errorMessage = if (errorField.error == invalidErrorMsg) {
+                    "Please Enter Your $trimmedLabel Correctly"
+                } else {
+                    "Please Enter Your $trimmedLabel"
+                }
+                Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
             } else {
+                // No fields have errors, proceed with the form submission
                 Toast.makeText(this, "Success!", Toast.LENGTH_SHORT).show()
             }
         }
@@ -73,7 +85,7 @@ class PayBillActivity : AppCompatActivity() {
 
             // Add the TextInputEditText to the list if the field is required
             if(field.required == true){
-                requiredInputFields.add(textInputEditText)
+                requiredFields.add(textInputEditText)
             }
         }
     }
@@ -110,14 +122,14 @@ class PayBillActivity : AppCompatActivity() {
 
     private fun validateRequiredField(text: CharSequence?, textInputEditText: TextInputEditText) {
         if (text.isNullOrEmpty()) {
-            textInputEditText.error = "This field is required"
+            textInputEditText.error = requiredErrorMsg
         }
         Log.d("validateRequiredField", "$text ${textInputEditText.error}")
     }
 
     private fun validateRegexField(regex: String, text: CharSequence?, textInputEditText: TextInputEditText) {
         if (!text.isNullOrEmpty() && !text.matches(Regex(regex))) {
-            textInputEditText.error = "Invalid input"
+            textInputEditText.error = invalidErrorMsg
         }
         Log.d("validateRegexField", "$text ${textInputEditText.error}")
     }
