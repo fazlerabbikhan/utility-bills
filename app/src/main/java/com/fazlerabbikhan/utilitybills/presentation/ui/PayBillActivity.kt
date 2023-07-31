@@ -1,6 +1,7 @@
 package com.fazlerabbikhan.utilitybills.presentation.ui
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -18,6 +19,7 @@ import com.google.android.material.textfield.TextInputLayout
 class PayBillActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityPayBillBinding
+    private val allFields = mutableListOf<TextInputEditText>()
     private val requiredFields = mutableListOf<TextInputEditText>()
     private val requiredErrorMsg = "This field is required"
     private val invalidErrorMsg = "Invalid input"
@@ -61,6 +63,19 @@ class PayBillActivity : AppCompatActivity() {
             } else {
                 // No fields have errors, proceed with the form submission
                 Toast.makeText(this, "Success!", Toast.LENGTH_SHORT).show()
+
+                // Prepare the input values list
+                val inputValuesList = mutableListOf<Pair<String, String>>()
+                for (field in allFields) {
+                    val label = field.hint?.toString()?.substringAfter(' ')?.trim(':') ?: ""
+                    val text = field.text.toString()
+                    inputValuesList.add(Pair(label, text))
+                }
+
+                // Start the new activity and pass the input values list
+                val intent = Intent(this, DisplayInputValuesActivity::class.java)
+                intent.putExtra("inputValuesList", ArrayList(inputValuesList))
+                startActivity(intent)
             }
         }
     }
@@ -82,6 +97,9 @@ class PayBillActivity : AppCompatActivity() {
 
             // Apply validation to the inputEditText based on the field properties
             applyValidation(field, textInputEditText)
+
+            // Add the TextInputEditText to the list of all fields
+            allFields.add(textInputEditText)
 
             // Add the TextInputEditText to the list if the field is required
             if(field.required == true){
